@@ -23,7 +23,10 @@
 
   app.use(
     cors({
-      origin: "https://task-brain-837c.vercel.app",
+      origin: [
+        "https://task-brain-837c.vercel.app",
+        "https://task-brain-6sjr.vercel.app"
+      ],
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })

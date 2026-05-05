@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ function Login() {
 
     try {
       await axios.post(
-        "http://localhost:8080/login",
+        `${BASE_URL}/login`,
         { username, password },
         { withCredentials: true }
       );
@@ -43,7 +45,6 @@ function Login() {
         backgroundPosition: "center",
       }}
     >
-      {/* Overlay */}
       <div
         style={{
           minHeight: "100vh",
@@ -53,7 +54,6 @@ function Login() {
           alignItems: "center",
         }}
       >
-        {/* Card */}
         <div
           className="card shadow-lg border-0 p-4"
           style={{

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function Dashboard() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
@@ -9,7 +11,7 @@ function Dashboard() {
 
   async function getTasks() {
     try {
-      const res = await axios.get("http://localhost:8080/tasks", {
+      const res = await axios.get(`${BASE_URL}/tasks`, {
         withCredentials: true,
       });
       setData(res.data);
@@ -20,7 +22,7 @@ function Dashboard() {
 
   async function getUser() {
     try {
-      const res = await axios.get("http://localhost:8080/me", {
+      const res = await axios.get(`${BASE_URL}/me`, {
         withCredentials: true,
       });
       setUser(res.data.user);
@@ -31,7 +33,7 @@ function Dashboard() {
 
   async function handleDelete(id) {
     try {
-      await axios.delete(`http://localhost:8080/task/${id}`, {
+      await axios.delete(`${BASE_URL}/task/${id}`, {
         withCredentials: true,
       });
       getTasks();

@@ -4,11 +4,13 @@ import Dashboard from "./pages/components/Dashboard";
 import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 
-import CreateTasks from "./pages/components/createTasks";
+
 
 import Navbar from "./pages/components/navbar";
-import UpdateStatus from "./pages/components/updateStatus";
+
 import UpdateAdminStatus from "./pages/components/UpdateAdminStaus";
+import UpdateStatus from "./pages/components/UpdateStatus";
+import CreateTasks from "./pages/components/CreateTasks";
 
 function App() {
   return (

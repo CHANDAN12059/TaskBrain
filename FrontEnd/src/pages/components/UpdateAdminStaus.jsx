@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function UpdateAdminStatus() {
   const { id } = useParams();
 
@@ -16,7 +18,7 @@ function UpdateAdminStatus() {
     async function fetchTask() {
       try {
         const res = await axios.get(
-          `http://localhost:8080/task/${id}`,
+          `${BASE_URL}/task/${id}`,
           { withCredentials: true }
         );
 
@@ -42,7 +44,7 @@ function UpdateAdminStatus() {
 
     try {
       await axios.put(
-        `http://localhost:8080/task/${id}`,
+        `${BASE_URL}/task/${id}`,
         {
           title,
           description,

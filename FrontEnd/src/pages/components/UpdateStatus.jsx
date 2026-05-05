@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function UpdateStatus() {
   const { id } = useParams();
 
   const [task, setTask] = useState(null);
   const [status, setStatus] = useState("Pending");
 
- 
   useEffect(() => {
     async function fetchTask() {
       try {
         const res = await axios.get(
-          `http://localhost:8080/task/${id}`,
+          `${BASE_URL}/task/${id}`,
           { withCredentials: true }
         );
         setTask(res.data);
@@ -30,8 +31,8 @@ function UpdateStatus() {
 
     try {
       await axios.put(
-        `http://localhost:8080/task/${id}`,
-        { status }, 
+        `${BASE_URL}/task/${id}`,
+        { status },
         { withCredentials: true }
       );
 
@@ -50,7 +51,6 @@ function UpdateStatus() {
 
       <form onSubmit={handleSubmit}>
 
-       
         <div className="mb-3">
           <label className="form-label">Task Title</label>
           <input
@@ -100,7 +100,6 @@ function UpdateStatus() {
           />
         </div>
 
-     
         <div className="mb-3">
           <label className="form-label">Status</label>
           <select
@@ -117,6 +116,7 @@ function UpdateStatus() {
         <button type="submit" className="btn btn-primary">
           Update Status
         </button>
+
       </form>
     </div>
   );

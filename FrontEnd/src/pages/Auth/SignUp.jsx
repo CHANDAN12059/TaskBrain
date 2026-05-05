@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -24,18 +26,19 @@ function SignUp() {
 
     try {
       await axios.post(
-        "http://localhost:8080/signup",
+        `${BASE_URL}/signup`,
         { username, email, password },
         { withCredentials: true }
       );
 
       window.location.href = "/dashboard";
     } catch (err) {
-      alert("Invalid credentials");
+      alert("Signup failed");
     }
 
     setUsername("");
     setPassword("");
+    setEmail("");
   }
 
   return (
@@ -75,6 +78,7 @@ function SignUp() {
                 type="email"
                 className="form-control"
                 placeholder="name@example.com"
+                value={email}
                 onChange={mail}
                 required
               />
@@ -86,6 +90,7 @@ function SignUp() {
                 type="text"
                 className="form-control"
                 placeholder="username"
+                value={username}
                 onChange={name}
                 required
               />
@@ -97,12 +102,15 @@ function SignUp() {
                 type="password"
                 className="form-control"
                 placeholder="password"
+                value={password}
                 onChange={pass}
                 required
               />
             </div>
 
-            <button className="btn btn-primary w-100">Sign Up</button>
+            <button className="btn btn-primary w-100">
+              Sign Up
+            </button>
           </form>
 
           <p className="mt-3 text-center">

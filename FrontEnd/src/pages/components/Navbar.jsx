@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BASE_URL = "https://taskbrain-ugbn.onrender.com";
+
 function Navbar() {
   const [user, setUser] = useState(null);
 
   async function checkUser() {
     try {
-      const res = await axios.get("http://localhost:8080/me", {
+      const res = await axios.get(`${BASE_URL}/me`, {
         withCredentials: true,
       });
 
-      setUser(res.data.user); 
+      setUser(res.data.user);
     } catch {
       setUser(null);
     }
@@ -21,23 +23,26 @@ function Navbar() {
   }, []);
 
   async function handleLogout() {
-    await axios.post(
-      "http://localhost:8080/logout",
-      {},
-      { withCredentials: true }
-    );
-    setUser(null);
-    window.location.href = "/login";
+    try {
+      await axios.post(
+        `${BASE_URL}/logout`,
+        {},
+        { withCredentials: true }
+      );
+      setUser(null);
+      window.location.href = "/login";
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary px-4">
       <div className="container-fluid">
 
-        <a className="navbar-brand fw-bold fs-4 me-4" href="#">
+        <a className="navbar-brand fw-bold fs-4 me-4" href="/">
           TaskBrain
         </a>
-
 
         <ul className="navbar-nav me-auto gap-3">
 
@@ -55,7 +60,6 @@ function Navbar() {
 
         </ul>
 
-   
         <ul className="navbar-nav ms-auto gap-3">
 
           {!user && (

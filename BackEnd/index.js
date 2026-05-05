@@ -19,21 +19,14 @@ mongoose
 
 const app = express();
 
-
 app.set("trust proxy", 1);
-
 
 app.use(
   cors({
-    origin: [
-      "https://task-brain-837c.vercel.app",
-      "https://task-brain-6sjr.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: true,
     credentials: true,
   })
 );
-
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
@@ -42,7 +35,6 @@ const store = MongoStore.create({
   },
   touchAfter: 24 * 3600,
 });
-
 
 app.use(
   session({
@@ -60,7 +52,6 @@ app.use(
   })
 );
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -68,7 +59,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 
 app.post("/create", async (req, res, next) => {
   try {
@@ -98,7 +89,6 @@ app.post("/create", async (req, res, next) => {
   }
 });
 
-
 app.get("/me", (req, res) => {
   if (req.user) {
     res.json({
@@ -111,7 +101,6 @@ app.get("/me", (req, res) => {
     res.status(401).json({ user: null });
   }
 });
-
 
 app.get("/tasks", async (req, res, next) => {
   try {
@@ -161,12 +150,10 @@ app.get("/tasks", async (req, res, next) => {
       completed,
       tasks,
     });
-
   } catch (err) {
     next(err);
   }
 });
-
 
 app.get("/task/:id", async (req, res, next) => {
   try {
@@ -185,7 +172,6 @@ app.get("/task/:id", async (req, res, next) => {
     next(err);
   }
 });
-
 
 app.put("/task/:id", async (req, res, next) => {
   try {
@@ -224,12 +210,10 @@ app.put("/task/:id", async (req, res, next) => {
       message: "Task updated successfully",
       task,
     });
-
   } catch (err) {
     next(err);
   }
 });
-
 
 app.delete("/task/:id", async (req, res, next) => {
   try {
@@ -251,7 +235,6 @@ app.delete("/task/:id", async (req, res, next) => {
   }
 });
 
-
 app.post("/signup", async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
@@ -268,17 +251,14 @@ app.post("/signup", async (req, res, next) => {
         user: registeredUser,
       });
     });
-
   } catch (err) {
     next(err);
   }
 });
 
-
 app.post("/login", passport.authenticate("local"), (req, res) => {
   res.json({ success: true });
 });
-
 
 app.post("/logout", (req, res) => {
   req.logout(() => {
@@ -286,12 +266,10 @@ app.post("/logout", (req, res) => {
   });
 });
 
-
 app.use((err, req, res, next) => {
   const { status = 500, message = "Something went wrong" } = err;
   res.status(status).json({ message });
 });
-
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");

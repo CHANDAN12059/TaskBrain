@@ -23,7 +23,7 @@
 
   app.use(
     cors({
-      origin: process.env.FRONT_END_URL || "http://localhost:5173",
+      origin: "https://task-brain-837c.vercel.app",
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })

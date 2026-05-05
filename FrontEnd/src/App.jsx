@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
 
     
-    <Route path="dashboard" element={<Dashboard />} />
+    <Route path="/dashboard" element={<Dashboard />} />
   
     <Route path="/task/:id" element={<UpdateStatus />} />  
     <Route path="/admin/task/:id" element={<UpdateAdminStatus />} />  

@@ -11,7 +11,7 @@ import SignUp from "./pages/Auth/SignUp";
 import UpdateAdminStatus from "./pages/components/UpdateAdminStaus";
 import UpdateStatus from "./pages/components/UpdateStatus";
 import CreateTasks from "./pages/components/CreateTasks";
-import Navbar from "./pages/components/navbar";
+import Navbar from "./pages/components/Navbar";
 
 
 

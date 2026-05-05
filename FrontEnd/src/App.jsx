@@ -6,18 +6,19 @@ import SignUp from "./pages/Auth/SignUp";
 
 
 
-import Navbar from "./pages/components/navbar";
+
 
 import UpdateAdminStatus from "./pages/components/UpdateAdminStaus";
 import UpdateStatus from "./pages/components/UpdateStatus";
 import CreateTasks from "./pages/components/CreateTasks";
+import Navbar from "./pages/components/navbar";
 
 function App() {
   return (
     <>
        
       <BrowserRouter>
-      <Navbar/>
+<Navbar/>
         <Routes>
         <Route path="/" element={<SignUp/>} />
           <Route path="/login" element={<Login />} />

@@ -29,6 +29,17 @@ function Dashboard() {
     }
   }
 
+  async function handleDelete(id) {
+    try {
+      await axios.delete(`http://localhost:8080/task/${id}`, {
+        withCredentials: true,
+      });
+      getTasks();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     getTasks();
     getUser();
@@ -56,10 +67,7 @@ function Dashboard() {
         <div className="container pt-4 text-white">
           <div className="row text-center mb-4 g-4">
             <div className="col-md-3">
-              <div
-                className="card border-0 shadow-lg"
-                style={{ backgroundColor: "#2563eb", color: "white" }}
-              >
+              <div className="card border-0 shadow-lg" style={{ backgroundColor: "#2563eb", color: "white" }}>
                 <div className="card-body">
                   <h6>Total Tasks</h6>
                   <h2>{data.total}</h2>
@@ -68,10 +76,7 @@ function Dashboard() {
             </div>
 
             <div className="col-md-3">
-              <div
-                className="card border-0 shadow-lg"
-                style={{ backgroundColor: "#f59e0b", color: "white" }}
-              >
+              <div className="card border-0 shadow-lg" style={{ backgroundColor: "#f59e0b", color: "white" }}>
                 <div className="card-body">
                   <h6>Pending</h6>
                   <h2>{data.pending}</h2>
@@ -80,10 +85,7 @@ function Dashboard() {
             </div>
 
             <div className="col-md-3">
-              <div
-                className="card border-0 shadow-lg"
-                style={{ backgroundColor: "#06b6d4", color: "white" }}
-              >
+              <div className="card border-0 shadow-lg" style={{ backgroundColor: "#06b6d4", color: "white" }}>
                 <div className="card-body">
                   <h6>In Progress</h6>
                   <h2>{data.inProgress}</h2>
@@ -92,10 +94,7 @@ function Dashboard() {
             </div>
 
             <div className="col-md-3">
-              <div
-                className="card border-0 shadow-lg"
-                style={{ backgroundColor: "#22c55e", color: "white" }}
-              >
+              <div className="card border-0 shadow-lg" style={{ backgroundColor: "#22c55e", color: "white" }}>
                 <div className="card-body">
                   <h6>Completed</h6>
                   <h2>{data.completed}</h2>
@@ -124,26 +123,33 @@ function Dashboard() {
                       navigate(`/task/${task._id}`);
                     }
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.transform = "scale(1.04)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.transform = "scale(1)")
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 >
                   <div className="card-body text-dark">
                     <h5 className="card-title">{task.title}</h5>
 
-                    <p>
-                      <b>Status:</b> {task.status}
-                    </p>
-                    <p>
-                      <b>Priority:</b> {task.priority}
-                    </p>
+                    <p><b>Status:</b> {task.status}</p>
+                    <p><b>Priority:</b> {task.priority}</p>
 
-                    <button className="btn btn-primary btn-sm">
-                      View Details
-                    </button>
+                    <div className="d-flex gap-2">
+                      <button className="btn btn-primary btn-sm">
+                        View
+                      </button>
+
+                      {user?.username === "admin" && (
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(task._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+
                   </div>
                 </div>
               </div>
